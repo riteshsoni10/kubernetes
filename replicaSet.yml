@@ -1,0 +1,29 @@
+---
+apiversion: v1
+kind: ReplicaSet
+
+metadata:
+  name: my-web-rs
+  labels:
+    env: test
+    zone: IN
+
+spec:
+  # Check for the presence of 3 pods with the same labels and image
+  replicas: 3
+  selector:
+    matchLabels:
+      # Check only those containers with the below labeles using set-based conditional evaluation  
+      env: test
+template:
+  metadata:
+    labels:
+      env: test
+      zone: IN
+      owner: ritesh
+    name: web-server-pod
+  spec:
+    containers:
+    - image: riteshsoni296/apache-php7
+      name: web-server-pod
+  
